@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="latest" aria-labelledby="latest-h">
+  <h2 id="latest-h" class="rule-heading"><span>Latest thinking</span></h2>
+  {{ $essays := where site.RegularPages "Section" "essays" }}
+  {{ if $essays }}
+  <ul class="cards">
+  {{ range $essays.ByDate.Reverse }}
+    <li class="card">
+      <article>
+        {{ partial "diagram.html" . }}
+        {{ with .Params.category }}<p class="kicker">{{ . }}</p>{{ end }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ if .Draft }}<p class="draft-badge">Sample / draft — not published</p>{{ end }}
+        {{ with .Params.thesis }}<p class="thesis">{{ . }}</p>{{ end }}
+        <a class="more" href="{{ .RelPermalink }}" aria-label="Read essay: {{ .Title }}">Read essay <span aria-hidden="true">→</span></a>
+      </article>
+    </li>
+  {{ end }}
+  </ul>
+  {{ else }}
+  <p class="empty">The first essays are on their way. Meanwhile, the <a href="{{ site.Params.archiveURL }}">2011–2019 archive</a> is still online.</p>
+  {{ end }}
+</section>
+{{ end }}

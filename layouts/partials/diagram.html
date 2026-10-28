@@ -1,0 +1,2 @@
+{{ with .Params.diagram_svg }}<figure class="loop" role="img" aria-label="{{ or $.Params.diagram_alt "Causal-loop diagram" }}">{{ . | safeHTML }}</figure>
+{{ else }}{{ with .Params.diagram_mermaid }}<figure class="loop" aria-label="{{ or $.Params.diagram_alt "Causal-loop diagram" }}"><pre class="mermaid">{{ . }}</pre></figure>{{ end }}{{ end }}

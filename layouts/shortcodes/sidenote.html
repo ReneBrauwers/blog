@@ -1,0 +1,1 @@
+{{- .Page.Store.Add "sn" 1 -}}{{- $n := .Page.Store.Get "sn" -}}<sup class="sn-ref" aria-hidden="true">{{ $n }}</sup><span class="sidenote" role="note"><span class="sn-num">{{ $n }}</span> {{ .Inner | .Page.RenderString }}</span>

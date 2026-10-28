@@ -1,0 +1,40 @@
+{{ define "main" }}
+<div class="article-wrap">
+  <nav class="zoom" aria-label="Zoom levels">
+    <p class="zoom-title">Zoom levels</p>
+    <ol>
+      <li><a href="#big-picture">Big picture</a></li>
+      <li><a href="#system">System</a></li>
+      <li><a href="#detail">Detail</a></li>
+    </ol>
+  </nav>
+  <article class="essay">
+    <header>
+      {{ with .Params.category }}<p class="kicker">Essay · {{ . }}</p>{{ end }}
+      <h1>{{ .Title }}</h1>
+      {{ if .Draft }}<p class="draft-badge" role="note">Sample / draft — this post is not published and exists to demonstrate the layout.</p>{{ end }}
+      {{ with .Params.thesis }}<p class="standfirst">{{ . }}</p>{{ end }}
+      <p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time> · {{ .ReadingTime }} min read</p>
+      {{ partial "diagram.html" . }}
+    </header>
+    <div class="body">{{ .Content }}</div>
+    {{ with .Params.tags }}<p class="tags">Tags: {{ delimit . ", " }}</p>{{ end }}
+  </article>
+  <aside class="related" aria-labelledby="rel-h">
+    <h2 id="rel-h">Related essays</h2>
+    {{ $rel := first 3 (site.RegularPages.Related .) }}
+    {{ if $rel }}
+    <svg class="minimap" viewBox="0 0 300 200" role="img" aria-label="Map of related essays">
+      {{ $n := len $rel }}
+      {{ range $i, $p := $rel }}
+        {{ $x := index (slice 60 240 150) $i }}{{ $y := index (slice 150 150 30) $i }}
+        <line x1="150" y1="110" x2="{{ $x }}" y2="{{ $y }}" />
+        <circle cx="{{ $x }}" cy="{{ $y }}" r="6" />
+      {{ end }}
+      <circle class="current" cx="150" cy="110" r="8" />
+    </svg>
+    <ul>{{ range $rel }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul>
+    {{ else }}<p class="muted">Related essays will appear here as the collection grows.</p>{{ end }}
+  </aside>
+</div>
+{{ end }}

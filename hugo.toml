@@ -1,0 +1,33 @@
+baseURL = "https://blog.reneb.au/"
+title = "Rene Brauwers"
+languageCode = "en-au"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[permalinks]
+  essays = "/essays/:slug/"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+
+[params]
+  tagline = "Root causes, not symptoms"
+  description = "Essays on systems, incentives and root causes by Rene Brauwers."
+  archiveURL = "https://blog-archive.reneb.au/"
+  homeURL = "https://reneb.au/"
+  umamiScript = "https://stats.reneb.au/script.js"
+  umamiWebsiteId = "4578c173-3770-44de-9648-6b667c106940"   # set to "" to disable analytics
+
+[related]
+  threshold = 20
+  includeNewer = true
+  toLower = true
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+  [[related.indices]]
+    name = "category"
+    weight = 50

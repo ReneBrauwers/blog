@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode }}">
+<head>{{ partial "head.html" . }}</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header" role="banner">
+  <div class="brand">
+    <a class="site-title" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+    <p class="tagline">{{ site.Params.tagline }}</p>
+  </div>
+  <nav aria-label="Main">
+    <ul>
+      <li><a href="{{ "/" | relURL }}"{{ if .IsHome }} aria-current="page"{{ end }}>Essays</a></li>
+      <li><a href="{{ site.Params.archiveURL }}">Archive</a></li>
+      <li><a href="{{ site.Params.homeURL }}">About</a></li>
+      <li><a href="{{ "index.xml" | relURL }}">RSS</a></li>
+    </ul>
+  </nav>
+</header>
+<main id="main">{{ block "main" . }}{{ end }}</main>
+<footer class="site-footer" role="contentinfo">
+  <p>© {{ now.Year }} Rene Brauwers · <a href="{{ site.Params.homeURL }}">reneb.au</a> · <a href="{{ site.Params.archiveURL }}">Archive (2011–2019)</a> · <a href="{{ "index.xml" | relURL }}">RSS feed</a></p>
+</footer>
+{{ if .Params.diagram_mermaid }}{{ partial "mermaid.html" . }}{{ else if .IsHome }}{{ range where site.RegularPages "Section" "essays" }}{{ if .Params.diagram_mermaid }}{{ $.Store.Set "mm" true }}{{ end }}{{ end }}{{ if .Store.Get "mm" }}{{ partial "mermaid.html" . }}{{ end }}{{ end }}
+</body>
+</html>
